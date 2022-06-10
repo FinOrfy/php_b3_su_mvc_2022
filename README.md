@@ -40,3 +40,5 @@ On créer donc les différent fichier twig où nous renvoie les methode CRUD de 
 PS :
 Je crois qu’on n’a pas commencé les améliorations sur le dernier projet à jours dans GitHub.
 La génération du formulaire n’est pas tout à fait finalisée. Le projet est envoyé tel quel mais un autre entièrement terminer et fonctionnel devrait être bon le 11/06/22 matin 👍
+
+Il y a aussi une branch "form_connexion" où se trouve un travailler sur un formulaire de connexion.
