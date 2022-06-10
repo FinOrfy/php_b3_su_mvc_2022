@@ -6,6 +6,8 @@
 # php_b3_su_mvc_2022
 # Développement d’un système CRUD
 
+**Il y a aussi une branch "form_connexion" où se trouve un travailler sur un formulaire de connexion.**
+
 Dans le dossier /src on crée une Class UserForm qui va permettre de construire 
 et générer dynamiquement des champs pour créer un formulaire qui nous permettra d’ajouter et d’éditer les utilisateurs. 
 De plus ça permet d’éviter de devoir les créer à chaque fois dans le template Twig.
@@ -41,4 +43,3 @@ PS :
 Je crois qu’on n’a pas commencé les améliorations sur le dernier projet à jours dans GitHub.
 La génération du formulaire n’est pas tout à fait finalisée. Le projet est envoyé tel quel mais un autre entièrement terminer et fonctionnel devrait être bon le 11/06/22 matin 👍
 
-Il y a aussi une branch "form_connexion" où se trouve un travailler sur un formulaire de connexion.
