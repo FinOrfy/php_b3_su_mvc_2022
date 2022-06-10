@@ -6,7 +6,7 @@
 # php_b3_su_mvc_2022
 # Développement d’un système CRUD
 
-Dans le dossier /src je crée une Class UserForm qui va permettre de construire 
+Dans le dossier /src on crée une Class UserForm qui va permettre de construire 
 et générer dynamiquement des champs pour créer un formulaire qui nous permettra d’ajouter et d’éditer les utilisateurs. 
 De plus ça permet d’éviter de devoir les créer à chaque fois dans le template Twig.
 
@@ -27,9 +27,9 @@ Qui va nous permettre d'utiliser notre nouvelle Classe UserForm
 On a donc La classe FormUser et les différentes methode CRUD dans userController.php qui nous retourne un rendu Twig.
 Il faut donc terminer par la création de ces rendus visuel en créant les différent fichier Twig dans le dossier templates/user
 
-Je sais plus si il y avait déjà le fichier base.html.twig mais en tout cas il s’agit du fichier qu’on va pouvoir réutiliser dans toutes les autres pages facilement grâce à une fonction Twig :
+Il y a base.html.twig il s’agit du fichier qu’on va pouvoir réutiliser dans toutes les autres pages facilement grâce à une fonction Twig :
 ````{% extends "base.html.twig" %}````
-Qui faut ajouter en début de chaque template twig.
+Il faut rajouter cette function en début de chaque template twig si l'on veut récupérer le visuel de base.html.twig
 
 On créer donc les différent fichier twig où nous renvoie les methode CRUD de UserController.php :
 * -	edit_user.html.twig
