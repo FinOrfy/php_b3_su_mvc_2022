@@ -44,7 +44,7 @@ $router->registerRoutes();
 if (php_sapi_name() === 'cli') {
   return;
 }
-èy
+
 $requestUri = $_SERVER['REQUEST_URI'];
 $requestMethod = $_SERVER['REQUEST_METHOD'];
 
