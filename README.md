@@ -43,12 +43,14 @@ On créer donc les différent fichier twig où nous renvoie les methode CRUD de 
 
 On cherche à débloquer la route de la method getUser : Il s’agit de récupérer un User particulier à l’aide de son id.
 Dans le fichier Routing/Routeur.php on retrouve en premier lieu la method splitUrlUri on dit que cette methode renvoie un tableau qu’on nomme ````tab_rout[]````. Cela permet de récupérer l’id de l’itilisateur qui est en 3ème position dans l’url. Le tableau contiendra la class user et l’id grâce à la variable $arrayUri qui à l’index 2 contient l’id de l’utilisateur.
+
 ![splitUrlUri](/docs/splitUrlUri.png)
 
 Puis dans la methode getRoute on fait un print_r($this->routes) afin de voir toutes les routes enregistrer
 Et on remplace $route['url'] par ['name'] pour que dans la route de la method getUser je puisse remplacer 'user' par 'show_user' parce que ça ne marche pas avec route comme localhost/user/1 mais cela fonctionne avec localhost/show_user/1.
 
 Dans la methode execute() on créer la variable ````$paramRoute = $this->splitUrlUri($uri);```` qui recupere l'url de la function splitUrlUri() et on instancie getRoute() qui va permettre de recuperer dans l'url les users grâce à la variable $paramRoute qu'on vient de créer.
+
 ![execute](/docs/execute.png)
 
 Pour récupere l'id de l'utilisateur on ajoute un 3ème parametre à la methode getMethodParams
