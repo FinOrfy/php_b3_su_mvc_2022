@@ -57,12 +57,13 @@ Pour récupere l'id de l'utilisateur on ajoute un 3ème parametre à la methode 
 
 En dernier lieu il faut donc adapter la method getMethodParams() afin que celle çi puisse si il le faut récupérer un utilisateur unique à l'aide de son id :
 On donne donc le 3ème paramètre à la method (id) qu'on définit bien par default comme pouvant être NULL afin que si on ne cherche pas d'user précis, on puisse par la suite avoir tous les users.
-On définit donc la condition que si $id existe alors $params["id"] sera la valeurs du 3ème parametre id 
+On définit donc la condition que si $id existe alors $params["id"] sera la valeurs du 3ème parametre id.
 
 `````
 if ($id) {
       $params["id"] = $id;
-    }`````
+    }
+`````
 
 => On retourne dans UserController.php et on rajoute à la method getUser le 3ème paramettre $id qu'on définit pour la bonne pratique comme un entier.
 La method getUser retourne le template /profil_user.html.twig, on met bien le 'name' de la route dans l'url (localhost/show_user/1) et on retrouve bien notre 1 users présent dans notre BDD :
