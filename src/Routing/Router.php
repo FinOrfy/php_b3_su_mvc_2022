@@ -54,12 +54,18 @@ class Router
    * @param string $uri  
    * @return int|null
    */
-  public function splitUrlUri(string $uri):?int{
+  public function splitUrlUri(string $uri):?array{
 
+    $tab_route = [];
     $arrayUri = explode("/",$uri);
-    if(count($arrayUri)>=2){
-
-      return $arrayUri[1];
+    //var_dump($uri);
+    //var_dump(count($arrayUri));
+    //var_dump($arrayUri);
+    if(count($arrayUri)>=3){
+      
+      $tab_route["class"] = $arrayUri[1];
+      $tab_route["id"] = $arrayUri[2];
+      return $tab_route;
     }
 
     return null;
@@ -76,8 +82,9 @@ class Router
  
   public function getRoute(string $uri, string $httpMethod): ?array
   {
+    print_r($this->routes);
     foreach ($this->routes as $route) {
-      if ($route['url'] === $uri && $route['http_method'] === $httpMethod) {
+      if ($route['name'] === $uri && $route['http_method'] === $httpMethod) {
         return $route;
       }
     }
@@ -95,9 +102,11 @@ class Router
    */
   public function execute(string $uri, string $httpMethod)
   {
-    $route = $this->getRoute($uri, $httpMethod);
-
+    //var_dump($uri, $httpMethod);
     $paramRoute = $this->splitUrlUri($uri);
+    //var_dump($paramRoute["class"]);
+    $route = $this->getRoute($paramRoute["class"], $httpMethod);
+
 
     if ($route === null) {
       throw new RouteNotFoundException();
@@ -108,7 +117,8 @@ class Router
     $controller = new $controllerName(...$constructorParams);
 
     $method = $route['method'];
-    $params = $this->getMethodParams($controllerName, $method);
+    $params = $this->getMethodParams($controllerName, $method, $paramRoute["id"]);
+    //var_dump($params);
 
     call_user_func_array(
       [$controller, $method],
@@ -123,7 +133,7 @@ class Router
    * @param string $method name of method
    * @return array
    */
-  private function getMethodParams(string $controller, string $method): array
+  private function getMethodParams(string $controller, string $method, $id = NULL): array
   {
     $methodInfos = new ReflectionMethod($controller . '::' . $method);
     $methodParameters = $methodInfos->getParameters();
@@ -138,7 +148,9 @@ class Router
         $params[$paramName] = $this->container->get($paramType);
       }
     }
-
+    if ($id) {
+      $params["id"] = $id;
+    }
     return $params;
   }
 

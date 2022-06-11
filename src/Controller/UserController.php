@@ -28,22 +28,6 @@ class UserController extends AbstractController
     echo $this->twig->render('user/list.html.twig', ['users' => $users]);
   }
 
-  #[Route(path: "/users/:id", name: "show_user", httpMethod: "GET")]
-  public function getUser(EntityManager $em)
-  {
-    // $repository = $em->getRepository(User::class);   
-  
-    $user = $em->find($id);
-
-    if (!$user) {
-
-        $e = new RouteNotFoundException();
-        throw $e->message;
-    }   
-
-
-    echo $this->twig->render('user/profil_user.html.twig', ['user' => $user]);
-  }
 
   #[Route(path: "/users/edit/:id", name: "edit_user", httpMethod: "GET")]
   public function editUser(EntityManager $em)
@@ -74,7 +58,7 @@ class UserController extends AbstractController
   public function updateUser(EntityManager $em)
   {
    // $repository = $em->getRepository(User::class);   
-  
+    $id = $_POST["id"];
     $user = $em->find($id);
 
     if (!$user) {
@@ -166,6 +150,25 @@ class UserController extends AbstractController
 
     echo $this->twig->render('user/list.html.twig', ['users' => $users]);
 
+  }
+
+  #[Route(path: "/users/:id", name: "show_user", httpMethod: "GET")]
+  public function getUser(EntityManager $em, int $id)
+  {
+    $repository = $em->getRepository(User::class);   
+  
+    //$id = 1;
+    $user = $repository->find($id);
+
+    if (!$user) {
+
+        $e = new RouteNotFoundException();
+        throw $e->message;
+    }   
+
+    //var_dump($user);
+    echo $this->twig->render('user/profil_user.html.twig', ['user' => $user]);
+    
   }
 
   #[Route(path: "/users/delete/:id", name: "delete_user", httpMethod: "GET")]
