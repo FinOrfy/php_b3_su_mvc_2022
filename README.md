@@ -70,6 +70,7 @@ if ($id) {
 => On retourne dans UserController.php et on rajoute à la method getUser le 3ème paramettre $id qu'on définit pour la bonne pratique comme un entier.
 La method getUser retourne le template /profil_user.html.twig, on met bien le 'name' de la route dans l'url (localhost/show_user/1) et on retrouve bien notre 1 users présent dans notre BDD :
 ![bdd](/docs/bdd.png)
+
 ![user1](/docs/user1.png)
 
 
