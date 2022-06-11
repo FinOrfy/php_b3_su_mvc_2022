@@ -78,6 +78,5 @@ La method getUser retourne le template /profil_user.html.twig, on met bien le 'n
 
 ---
 PS :
-Les améliorations n’ont pas commencé sur la dernier version du projet à jours dans GitHub.
-La génération du formulaire n’est pas tout à fait finalisée. Et seul la route de la method getUser est fontionnel pour l'instant 👍
+Les améliorations n’ont pas commencé sur la dernier version du projet à jours dans GitHub.👍
 
