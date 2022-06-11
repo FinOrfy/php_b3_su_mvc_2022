@@ -6,7 +6,7 @@
 # php_b3_su_mvc_2022
 # Développement d’un système CRUD
 
-👀🎨 **Il y a aussi une branch "form_connexion" où se trouve un travailler sur un formulaire de connexion.**
+👀🎨 **Il y a aussi une branch "form_connexion" où se trouve un travaille sur un formulaire de connexion.**
 
 Dans le dossier /src on crée une Class UserForm qui va permettre de construire 
 et générer dynamiquement des champs pour créer un formulaire qui nous permettra d’ajouter et d’éditer les utilisateurs. 
