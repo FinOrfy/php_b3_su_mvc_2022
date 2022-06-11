@@ -105,7 +105,7 @@ class Router
     //var_dump($uri, $httpMethod);
     $paramRoute = $this->splitUrlUri($uri);
     //var_dump($paramRoute["class"]);
-    $route = $this->getRoute($paramRoute["class"], $httpMethod);
+    $route = $this->getRoute($paramRoute["class"], $httpMethod); 
 
 
     if ($route === null) {

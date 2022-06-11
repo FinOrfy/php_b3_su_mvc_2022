@@ -39,7 +39,37 @@ On créer donc les différent fichier twig où nous renvoie les methode CRUD de 
 * ✔	profil_user.html.twig
 
 ---
+## Fonctionnement des Routes
+
+On cherche à débloquer la route de la method getUser : Il s’agit de récupérer un User particulier à l’aide de son id.
+Dans le fichier Routing/Routeur.php on retrouve en premier lieu la method splitUrlUri on dit que cette methode renvoie un tableau qu’on nomme ````tab_rout[]````. Cela permet de récupérer l’id de l’itilisateur qui est en 3ème position dans l’url. Le tableau contiendra la class user et l’id grâce à la variable $arrayUri qui à l’index 2 contient l’id de l’utilisateur.
+![splitUrlUri](/docs/splitUrlUri.png)
+
+Puis dans la methode getRoute on fait un print_r($this->routes) afin de voir toutes les routes enregistrer
+Et on remplace $route['url'] par ['name'] pour que dans la route de la method getUser je puisse remplacer 'user' par 'show_user' parce que ça ne marche pas avec route comme localhost/user/1 mais cela fonctionne avec localhost/show_user/1.
+
+Dans la methode execute() on créer la variable ````$paramRoute = $this->splitUrlUri($uri);```` qui recupere l'url de la function splitUrlUri() et on instancie getRoute() qui va permettre de recuperer dans l'url les users grâce à la variable $paramRoute qu'on vient de créer.
+![execute](/docs/execute.png)
+
+Pour récupere l'id de l'utilisateur on ajoute un 3ème parametre à la methode getMethodParams
+````$params = $this->getMethodParams($controllerName, $method, $paramRoute["id"]);````
+
+En dernier lieu il faut donc adapter la method getMethodParams() afin que celle çi puisse si il le faut récupérer un utilisateur unique à l'aide de son id :
+On donne donc le 3ème paramètre à la method (id) qu'on définit bien par default comme pouvant être NULL afin que si on ne cherche pas d'user précis, on puisse par la suite avoir tous les users.
+On définit donc la condition que si $id existe alors $params["id"] sera la valeurs du 3ème parametre id 
+```` if ($id) {
+      $params["id"] = $id;
+    }`````
+
+=> On retourne dans UserController.php et on rajoute à la method getUser le 3ème paramettre $id qu'on définit pour la bonne pratique comme un entier.
+La method getUser retourne le template /profil_user.html.twig, on met bien le 'name' de la route dans l'url (localhost/show_user/1) et on retrouve bien notre 1 users présent dans notre BDD :
+![bdd](/docs/bdd.png)
+![user1](/docs/user1.png)
+
+
+
+---
 PS :
-Je crois qu’on n’a pas commencé les améliorations sur le dernier projet à jours dans GitHub.
-La génération du formulaire n’est pas tout à fait finalisée. Le projet est envoyé tel quel mais un autre entièrement terminer et fonctionnel devrait être bon le 11/06/22 matin 👍
+Les améliorations n’ont pas commencé sur la dernier version du projet à jours dans GitHub.
+La génération du formulaire n’est pas tout à fait finalisée. Et seul la route de la method getUser est fontionnel pour l'instant 👍
 
