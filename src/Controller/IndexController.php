@@ -9,7 +9,7 @@ use Doctrine\ORM\EntityManager;
 
 class IndexController extends AbstractController
 {
-  #[Route(path: "/")]
+  #[Route(path: "/", name: "adduser", httpMethod: "POST")]
   public function index(EntityManager $em)
   {
     $user = new User();

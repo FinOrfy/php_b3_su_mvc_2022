@@ -62,7 +62,6 @@ class Router
     //var_dump(count($arrayUri));
     //var_dump($arrayUri);
     if(count($arrayUri)>=3){
-      
       $tab_route["class"] = $arrayUri[1];
       $tab_route["id"] = $arrayUri[2];
       return $tab_route;
@@ -106,7 +105,6 @@ class Router
     $paramRoute = $this->splitUrlUri($uri);
     //var_dump($paramRoute["class"]);
     $route = $this->getRoute($paramRoute["class"], $httpMethod); 
-
 
     if ($route === null) {
       throw new RouteNotFoundException();

@@ -9,10 +9,13 @@ use Doctrine\ORM\EntityManager;
 use App\Routing\Attribute\Route;
 
 use App\Routing\RouteNotFoundException;
+use DateTime;
+
 
 class UserController extends AbstractController
 {
-  #[Route(path: "/users", name: "users_list")]
+
+  #[Route(path: "/users", name: "users_list", httpMethod: "GET")]
   public function list(EntityManager $em)
   {
     // Création liste users
@@ -20,15 +23,20 @@ class UserController extends AbstractController
     // Créer à l'aide d'une boucle un nombre X d'utilisateurs avec des données fakes
     // Transmettre ensuite ces utilisateurs à la vue
     
+    $user = $em
+    ->getRepository(User::class)
+    ->findAll();
 
-    // $repository = $em->getRepository(User::class);
+    if (!$user) {
 
-    $users = $em->findAll();
+      $e = new RouteNotFoundException();
+      throw $e->message;
+  }   
 
-    echo $this->twig->render('user/list.html.twig', ['users' => $users]);
-  }
+    //var_dump($users);
+    echo $this->twig->render('user/list.html.twig', ['user' => $user]);  }
 
-
+  /*
   #[Route(path: "/users/edit/:id", name: "edit_user", httpMethod: "GET")]
   public function editUser(EntityManager $em)
   {
@@ -103,15 +111,20 @@ class UserController extends AbstractController
 
     echo $this->twig->render('user/profil_user.html.twig', ['user' => $user]);
   }
-
-   #[Route(path: "/users", name: "add_user", httpMethod: "POST")]
+  */
+  #[Route(path: "/users", name: "add_user", httpMethod: "GET")]
   public function addUser(EntityManager $em)
   {
-   // $repository = $em->getRepository(User::class);   
   
     $user = new User();
-  
-    
+
+    $user->setName("Bob")
+    ->setFirstName("John")
+    ->setUsername("Bobby")
+    ->setPassword("randompass")
+    ->setEmail("bob@bob.com")
+    ->setBirthDate(new DateTime('1981-02-16'));
+    /*
     if(isset($_POST["name"]) && !empty($_POST["name"])){
 
       $user->setName($_POST["name"]);
@@ -141,14 +154,13 @@ class UserController extends AbstractController
 
       $user->setBirthDate($_POST["birthDate"]);
     }
-
+    */
     $em->persist($user);
-    
     $em->flush();
 
-    $users = $em->findAll();
+    //$users = $em->findAll();
 
-    echo $this->twig->render('user/list.html.twig', ['users' => $users]);
+    //echo $this->twig->render('user/list.html.twig', ['users' => $users]);
 
   }
 
@@ -171,12 +183,12 @@ class UserController extends AbstractController
     
   }
 
-  #[Route(path: "/users/delete/:id", name: "delete_user", httpMethod: "GET")]
+  #[Route(path: "/users/:id", name: "delete_user", httpMethod: "GET")]
   public function removeUser(EntityManager $em, int $id)
   {
-   //  $repository = $em->getRepository(User::class);   
+    $repository = $em->getRepository(User::class);   
   
-    $user = $em->find($id);
+    $user = $repository->find($id);
 
     if (!$user) {
 
@@ -186,10 +198,8 @@ class UserController extends AbstractController
     
     $em->remove($user);
     $em->flush();
-
-    $users = $em->findAll();
-
-    echo $this->twig->render('user/list.html.twig', ['users' => $users]);
-
+    echo"<script language=\"javascript\">";
+    echo"alert('effacer avec succes')";
+    echo"</script>";
   }
 }
